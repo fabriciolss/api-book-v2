@@ -1,53 +1,49 @@
-import {bookModel} from "../model/BookModel.js";
+import {authorModel} from "../model/AuthorModel.js";
 
-export class BookController {
-    static booksData = bookModel();
+export class AuthorController {
+    static authorData = authorModel();
 
     static readInitialEndpoint = async (req, res) => {
         res.status(200).send('Welcome to api-book-v2. Considering previous version this API has implemented DATABASE with mongodb.')
     }
 
-    static createBook = async (req, res) => {
+    static createAuthor = async (req, res) => {
         const reqBody = req.body;
-        const newBook = new BookController.booksData(reqBody);
-        await newBook.save()
+        const newAuthor = new AuthorController.authorData(reqBody);
+        await newAuthor.save()
             .then(suc => res.status(201).send('Successfully saved.'))
             .catch(err => res.status(500).send(`Error: ${err.message}`))
     }
 
-    static createBooks = async (req, res) => {
+    static createAuthors = async (req, res) => {
         const reqBody = req.body;
-        const newBooks = await BookController.booksData.insertMany(reqBody)
+        const newAuthors = await AuthorController.authorData.insertMany(reqBody)
             .then(suc => res.status(201).send('Successfully saved.'))
             .catch(err => res.status(500).send(`Error: ${err.message}`));
     }
-    
-    static readBooks = async (req, res) => {
-        const books = await BookController.booksData.find()
-            .populate('author', 'name')
-            .exec()
-        res.status(200).json(books)
+
+    static readAuthors = async (req, res) => {
+        const authors = await AuthorController.authorData.find();
+        res.status(200).json(authors)
     }
 
-    static readBook = async (req, res) => {
+    static readAuthor = async (req, res) => {
         const paramsID = req.params.id;
-        const book = await BookController.booksData.findById(paramsID)
-            .populate('author', 'name')
-            .exec()
+        const author = await AuthorController.authorData.findById(paramsID)
             .then(suc => res.status(200).json(suc))
             .catch(err => res.status(500).send(`Error:${err.message}`));
     }
 
-    static updateBook = async(req,res) => {
+    static updateAuthor = async(req,res) => {
         const paramsID = req.params.id;
-        const book = await BookController.booksData.findByIdAndUpdate(paramsID, req.body)
+        const author = await AuthorController.authorData.findByIdAndUpdate(paramsID, req.body)
             .then(suc => res.status(204).json(suc))
             .catch(err => res.status(500).send(`Error: ${err.message}`));
     }
 
-    static deleteBook = async(req, res) =>{
+    static deleteAuthor = async(req, res) =>{
         const paramsID = req.params.id;
-        const book = await BookController.booksData.findByIdAndDelete(paramsID)
+        const author = await AuthorController.authorData.findByIdAndDelete(paramsID)
             .then(suc => res.status(204).send('Resource deleted successfully.'))
             .catch(err => res.status(500).send(`Error: ${err.message}`));
     }
