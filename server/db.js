@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import 'dotenv/config'
 
 export async function connectionMongo(){
-    mongoose.connect('mongodb+srv://fabricio:123@studycluster.u4tk2wy.mongodb.net/alura-node')
+    mongoose.connect(process.env.URI_STRING)
         .then(suc => console.log('Connection was successfully executed.'))
         .catch(err => console.error('Connection was not concluded'));
 }
