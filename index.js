@@ -9,6 +9,7 @@ connectionMongo();
 
 app.get('/', BookController.readInitialEndpoint);
 app.get('/books/', BookController.readBooks);
+app.get('/books/search', BookController.searchBook);
 app.get('/books/:id', BookController.readBook);
 app.post('/book/', BookController.createBook);
 app.post('/books/', BookController.createBooks);
@@ -16,6 +17,7 @@ app.put('/books/:id', BookController.updateBook);
 app.delete('/books/:id', BookController.deleteBook)
 
 app.get('/authors/', AuthorController.readAuthors);
+app.get('/authors/search', AuthorController.searchAuthor);
 app.get('/authors/:id', AuthorController.readAuthor);
 app.post('/author/', AuthorController.createAuthor);
 app.post('/authors/', AuthorController.createAuthors);

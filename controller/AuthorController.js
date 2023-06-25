@@ -47,4 +47,10 @@ export class AuthorController {
             .then(suc => res.status(204).send('Resource deleted successfully.'))
             .catch(err => res.status(500).send(`Error: ${err.message}`));
     }
+
+    static searchAuthor = async(req, res) => {
+        AuthorController.authorData.find({name: req.query.name})
+            .then(suc => res.status(200).json(suc))
+            .catch(err => res.status(500).send(`Error: ${err.message}`))
+    }
 }

@@ -51,4 +51,10 @@ export class BookController {
             .then(suc => res.status(204).send('Resource deleted successfully.'))
             .catch(err => res.status(500).send(`Error: ${err.message}`));
     }
+
+    static searchBook = async(req, res) => {
+        BookController.booksData.find({title: req.query.title})
+            .then(suc => res.status(200).json(suc))
+            .catch(err => res.status(500).send(`Error: ${err.message}`))
+    }
 }
